@@ -1,0 +1,74 @@
+@import url('https://fonts.googleapis.com/css?family=Lobster|EB+Garamond');
+
+.App {
+  display:flex;
+  flex-direction: row;
+  flex-wrap:wrap;
+  font-family: 'EB Garamond',sans-serif;
+  width:100vw;
+  height:100vh;
+}
+
+
+.header{
+  display:flex;
+  text-align: center;
+  flex-direction: row;
+  flex-wrap:wrap;
+  justify-content: center;
+  align-content: center;
+  width:100%;
+  background-color: purple;
+  height:10em;
+}
+
+.full-name{
+  width:100%;
+  font-size:1.5em;
+}
+
+.contact-info{
+  width:100%;
+  display:flex;
+  justify-content: center;
+  align-content: center;
+  font-size:1em;
+}
+
+.education-container{
+  width:100%;
+  display:flex;
+  flex-wrap:wrap;
+  justify-content: flex-start;
+  background-color: green;
+  padding:1em;
+
+}
+
+.education{
+
+}
+.title{
+  height:1.5em;
+  text-align:left;
+  text-decoration: underline;
+  background-color: purple;
+
+}
+.university{
+  text-align:left;
+  height:1.5em;
+  background-color: yellow;
+}
+
+.degree{
+  text-align:left;
+  height:1.5em;
+  background-color: red;
+}
+
+.work-experience-container{
+  width:100%;
+  padding:1em;
+
+}
