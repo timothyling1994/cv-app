@@ -74,17 +74,28 @@ input{
   width:48%;
 }
 
-.education{
-
+.education,.work-experience{
+  display:flex;
+  flex-wrap:wrap;
 }
-.university{
-  text-align:left;
+.row{
+  width:100%;
+}
+.display-university,.company{
+  float:left;
   background-color: yellow;
 }
+.display-university-date-range,.display-company-date-range{
+  float:right;
+}
 
-.degree{
-  text-align:left;
+.display-degree{
+  float:left;
   background-color: red;
+}
+
+textarea{
+  width:100%;
 }
 
 .work-experience-container{
@@ -93,11 +104,19 @@ input{
 
 }
 
+.work-description{
+  float:left;
+}
+
 .skills-container{
   width:100%;
   padding:1em;
 }
 
 .add-education,.add-work-experience,.add-skills{
+  padding:0.75em;
+}
+
+.submit,.cancel{
   padding:0.75em;
 }

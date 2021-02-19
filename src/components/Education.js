@@ -7,10 +7,16 @@ class Education extends Component{
 	}
 
 	render(){
+		console.log(this.props);
 		return (
 			<div className="education">
-	          <div className="university">University of Southern California</div>
-	          <div className="degree"> B.S Computer Science</div>
+	          <div className="row">
+	          	<div className="display-university">{this.props.formObj.school_input}</div>
+	          	<div className="display-university-date-range">{this.props.formObj.school_from_date}-{this.props.formObj.school_to_date}</div>
+	          </div>
+	          <div className="row">
+	          	<div className="display-degree">{this.props.formObj.school_degree_input}</div>
+	          </div>
 	        </div>
 	    );
 	}	

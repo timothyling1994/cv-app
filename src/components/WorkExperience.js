@@ -7,11 +7,15 @@ class WorkExperience extends Component{
 	}
 
 	render(){
+
 		return (
 			<div id="work-exp-1" className="work-experience">
-	          <div id="company-1" className="company">Ticketmaster</div>
-	          <div className="role">Solutions Engineer</div>
-	          <div className="description">
+	          <div className="row">
+	          	<div id="company-1" className="company">{this.props.formObj.company_name_input}, {this.props.formObj.company_city_input}</div>
+	          	<div className="display-company-date-range">{this.props.formObj.company_from_date_input}-{this.props.formObj.company_to_date_input}</div>
+	          </div>
+	          <div className="role">{this.props.formObj.company_role_input}</div>
+	          <div className="work-description">
 	            <ul>
 	              <li id="bullet-1">Created FQDN web app tool using Django framework </li>
 	              <li id="bullet-2">Created FQDN web app tool using Django framework </li>
