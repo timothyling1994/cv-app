@@ -47,7 +47,6 @@ class App extends Component {
     add_education_btn.style.display="none";
 
     this.setState({
-      //educationForm:[<EducationForm removeEducationForm={this.removeEducationForm} recordEducation={this.recordEducation}/>],
       educationForm:[true],
    });
   }
@@ -63,17 +62,19 @@ class App extends Component {
 
   recordEducation(formObj){
     this.removeEducationForm();
-    console.log(uniqid());
+    //console.log(uniqid());
     //const newArr = this.state.recordEducation.concat(<Education key={uniqid()} id={uniqid()} formObj={formObj} modifyEducation={this.modifyEducation}/>);
-    /*const newArr = this.state.recordEducation.concat({
+    console.log(this.state.recordEducation); //empty array
+    const newArr = this.state.recordEducation.concat({
       key:uniqid(),
       id:uniqid(),
       formObj:formObj,
     });
-    console.log(newArr.id);
+    console.log(newArr);
+    //console.log(newArr.id);
     this.setState({
-      recordEducation:[newArr],
-    });*/
+      recordEducation:newArr,
+    });
 
   }
 
@@ -96,7 +97,6 @@ class App extends Component {
 
     this.setState({
       workExperienceForm:[true],
-      //workExperienceForm:[<WorkExperienceForm removeWorkExperienceForm={this.removeWorkExperienceForm} recordWorkExperience={this.recordWorkExperience}/>],
     });
   } 
 
@@ -111,9 +111,13 @@ class App extends Component {
 
   recordWorkExperience(formObj){
     this.removeWorkExperienceForm();
-    const newArr = this.state.recordWorkExperience.concat(<WorkExperience formObj={formObj}/>);
+    const newArr = this.state.recordWorkExperience.concat({
+      key:uniqid(),
+      id:uniqid(),
+      formObj:formObj,
+    });
     this.setState({
-      recordWorkExperience:[newArr],
+      recordWorkExperience:newArr,
     });
   }
 
@@ -151,14 +155,18 @@ class App extends Component {
 
         <div className="education-container">
           <div className="title">EDUCATION</div>
-          {this.state.recordEducation}
+          {this.state.recordEducation.map((entry)=>{
+            return <Education key={entry.key} id={entry.id} formObj={entry.formObj} modifyEducation={this.modifyEducation}/>
+          })}
           {this.state.educationForm[0] && <EducationForm removeEducationForm={this.removeEducationForm} recordEducation={this.recordEducation}/>}
           <button className="add-education" onClick={this.addEducationForm}>+ Add Education</button>
         </div>
 
         <div className="work-experience-container">
           <div className="title">WORK EXPERIENCE</div>
-          {this.state.recordWorkExperience}
+          {this.state.recordWorkExperience.map((entry)=>{
+            return <WorkExperience key={entry.key} id={entry.id} formObj={entry.formObj}/>
+          })}
           {this.state.workExperienceForm[0] && <WorkExperienceForm removeWorkExperienceForm={this.removeWorkExperienceForm} recordWorkExperience={this.recordWorkExperience}/>}
           <button className="add-work-experience" onClick={this.addWorkExperienceForm}>+ Add Work Experience</button>
         </div>
