@@ -17,8 +17,10 @@ class WorkExperience extends Component{
 	          <div className="role">{this.props.formObj.company_role_input}</div>
 	          <div className="work-description">
 	            <ul>
-	              <li id="bullet-1">Created FQDN web app tool using Django framework </li>
-	              <li id="bullet-2">Created FQDN web app tool using Django framework </li>
+	            	{this.props.formObj.company_role_description_array.map(bulletpoint=>{
+	            		return <li>{bulletpoint}</li>
+	            	})}
+	      
 	            </ul>
 	          </div>
 	        </div>

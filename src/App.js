@@ -10,6 +10,7 @@ import WorkExperience from './components/WorkExperience.js';
 import Skills from './components/Skills.js';
 import SkillsForm from './components/SkillsForm.js';
 
+
 class App extends Component {
 
   constructor(props){
@@ -26,10 +27,11 @@ class App extends Component {
     }
 
     this.addEducationForm=this.addEducationForm.bind(this);
+    this.removeEducationForm=this.removeEducationForm.bind(this);
+    this.modifyEducation=this.modifyEducation.bind(this);
     this.addWorkExperienceForm=this.addWorkExperienceForm.bind(this);
     this.addSkillsForm=this.addSkillsForm.bind(this);
     this.removeWorkExperienceForm=this.removeWorkExperienceForm.bind(this);
-    this.removeEducationForm=this.removeEducationForm.bind(this);
     this.removeSkillsForm=this.removeSkillsForm.bind(this);
     this.recordWorkExperience=this.recordWorkExperience.bind(this);
     this.recordEducation=this.recordEducation.bind(this);
@@ -57,10 +59,14 @@ class App extends Component {
 
   recordEducation(formObj){
     this.removeEducationForm();
-    const newArr = this.state.recordEducation.concat(<Education formObj={formObj}/>);
+    const newArr = this.state.recordEducation.concat(<Education formObj={formObj} modifyEducation={this.modifyEducation}/>);
     this.setState({
       recordEducation:[newArr],
     });
+  }
+
+  modifyEducation(index,objField,newValue){
+    console.log(this.state.recordEducation);
   }
 
   addWorkExperienceForm(){ 

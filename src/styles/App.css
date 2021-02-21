@@ -96,6 +96,8 @@ input{
 
 textarea{
   width:100%;
+  height:5em;
+  font-family: 'EB Garamond',sans-serif;
 }
 
 .work-experience-container{
