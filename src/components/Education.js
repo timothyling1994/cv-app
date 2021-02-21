@@ -43,7 +43,7 @@ class Education extends Component{
 		return (
 			<div className ="education">
 	          <div className="row">
-	          	{(this.state.editUniversity) ? <EditForm className="display-university" setEditStateFalse={this.setEditStateFalse} placeholder={this.props.formObj.school_input}/> : <div className="display-university" onClick={(e)=>this.editForm(e)}>{this.props.formObj.school_input}</div>}
+	          	{(this.state.editUniversity) ? <EditForm id={this.props.id} inputType="school_input"className="display-university" setEditStateFalse={this.setEditStateFalse} modifyEducation={this.props.modifyEducation} placeholder={this.props.formObj.school_input}/> : <div id={this.props.id} className="display-university" onClick={(e)=>this.editForm(e)}>{this.props.formObj.school_input}</div>}
 	          	<div className="display-university-date-range">{this.props.formObj.school_from_date}-{this.props.formObj.school_to_date}</div>
 	          </div>
 	          <div className="row">

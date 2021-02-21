@@ -1,5 +1,7 @@
 import logo from './logo.svg';
 import './styles/App.css';
+import uniqid from "uniqid";
+
 import React, { Component } from "react";
 import ReactDOM from 'react-dom';
 import ContactDetails from './components/ContactDetails.js';
@@ -17,9 +19,9 @@ class App extends Component {
     super(props);
 
     this.state={
-      workExperienceForm:[],
-      educationForm:[],
-      skillsForm:[],
+      workExperienceForm:[false],
+      educationForm:[false],
+      skillsForm:[false],
       recordEducation:[],
       recordWorkExperience:[],
       recordSkills:[],
@@ -40,17 +42,19 @@ class App extends Component {
   };
 
   addEducationForm(){ 
+    console.log("reach");
     const add_education_btn = document.querySelector(".add-education");
     add_education_btn.style.display="none";
 
     this.setState({
-      educationForm:[<EducationForm removeEducationForm={this.removeEducationForm} recordEducation={this.recordEducation}/>],
-    });
+      //educationForm:[<EducationForm removeEducationForm={this.removeEducationForm} recordEducation={this.recordEducation}/>],
+      educationForm:[true],
+   });
   }
 
   removeEducationForm(){
     this.setState({
-      educationForm:[],
+      educationForm:[false],
     });
 
     const add_education_btn = document.querySelector(".add-education");
@@ -59,14 +63,31 @@ class App extends Component {
 
   recordEducation(formObj){
     this.removeEducationForm();
-    const newArr = this.state.recordEducation.concat(<Education formObj={formObj} modifyEducation={this.modifyEducation}/>);
+    console.log(uniqid());
+    //const newArr = this.state.recordEducation.concat(<Education key={uniqid()} id={uniqid()} formObj={formObj} modifyEducation={this.modifyEducation}/>);
+    /*const newArr = this.state.recordEducation.concat({
+      key:uniqid(),
+      id:uniqid(),
+      formObj:formObj,
+    });
+    console.log(newArr.id);
     this.setState({
       recordEducation:[newArr],
-    });
+    });*/
+
   }
 
-  modifyEducation(index,objField,newValue){
-    console.log(this.state.recordEducation);
+  modifyEducation(id,objField,newValue){
+    //console.log(this.state.recordEducation);
+    console.log(id,objField,newValue);
+    //console.log(this.state.recordEducation[objField]);
+    this.state.recordEducation.forEach((record)=>{
+      console.log("printing"+record.id);
+      if(record.id==id)
+      {
+        console.log("FOUND:" + record);
+      }
+    })
   }
 
   addWorkExperienceForm(){ 
@@ -74,13 +95,14 @@ class App extends Component {
     add_work_btn.style.display="none";
 
     this.setState({
-      workExperienceForm:[<WorkExperienceForm removeWorkExperienceForm={this.removeWorkExperienceForm} recordWorkExperience={this.recordWorkExperience}/>],
+      workExperienceForm:[true],
+      //workExperienceForm:[<WorkExperienceForm removeWorkExperienceForm={this.removeWorkExperienceForm} recordWorkExperience={this.recordWorkExperience}/>],
     });
   } 
 
   removeWorkExperienceForm(){
     this.setState({
-      workExperienceForm:[],
+      workExperienceForm:[false],
     });
 
     const add_work_btn = document.querySelector(".add-work-experience");
@@ -101,13 +123,13 @@ class App extends Component {
     add_skills_btn.style.display="none";
 
     this.setState({
-      skillsForm:[<SkillsForm removeSkillsForm={this.removeSkillsForm}/>],
+      skillsForm:[true],
     });
   }
 
   removeSkillsForm(){
     this.setState({
-      skillsForm:[],
+      skillsForm:[false],
     });
 
     const add_skills_btn = document.querySelector(".add-skills");
@@ -119,6 +141,7 @@ class App extends Component {
   }
 
   render(){
+    //console.log(this.state.educationForm);
     return (
       <div className="App">
         
@@ -129,20 +152,20 @@ class App extends Component {
         <div className="education-container">
           <div className="title">EDUCATION</div>
           {this.state.recordEducation}
-          {this.state.educationForm}
+          {this.state.educationForm[0] && <EducationForm removeEducationForm={this.removeEducationForm} recordEducation={this.recordEducation}/>}
           <button className="add-education" onClick={this.addEducationForm}>+ Add Education</button>
         </div>
 
         <div className="work-experience-container">
           <div className="title">WORK EXPERIENCE</div>
           {this.state.recordWorkExperience}
-          {this.state.workExperienceForm}
+          {this.state.workExperienceForm[0] && <WorkExperienceForm removeWorkExperienceForm={this.removeWorkExperienceForm} recordWorkExperience={this.recordWorkExperience}/>}
           <button className="add-work-experience" onClick={this.addWorkExperienceForm}>+ Add Work Experience</button>
         </div>
 
         <div className="skills-container">
           <div className="title">SKILLS</div>
-          {this.state.skillsForm}
+          {this.state.skillsForm[0] && <SkillsForm removeSkillsForm={this.removeSkillsForm}/>}
           <button className="add-skills" onClick={this.addSkillsForm}>+ Add Skills</button>       
         </div>
 
