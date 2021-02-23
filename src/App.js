@@ -42,7 +42,6 @@ class App extends Component {
   };
 
   addEducationForm(){ 
-    console.log("reach");
     const add_education_btn = document.querySelector(".add-education");
     add_education_btn.style.display="none";
 
@@ -72,26 +71,26 @@ class App extends Component {
     this.setState({
       recordEducation:newArr,
     });
-
-    console.log("recordEducation:"+this.state.recordEducation);
-
   }
 
   modifyStateFormObj(id,stateKey,formObjKey,newValue,optional){
 
+
     let bulletPointKey = optional;
 
-    console.log("modifyStateForm:before:"+Object.keys(this.state.recordEducation.key));
+    this.state.[stateKey].forEach((record)=>{
+      console.log(record.key);
+    })
 
     if(bulletPointKey == undefined)
     {
+      let recordCounter = 0;
       this.state.[stateKey].forEach((record)=>{
-        let recordCounter = 0;
+
+        console.log(recordCounter);
         if(record.id==id)
         {
-          console.log("reach1");
           let newEducationObj = record;
-          console.log("reach2");
           newEducationObj.formObj[formObjKey]=newValue;
           let newStateObj = this.state.[stateKey];
           newStateObj[recordCounter] = newEducationObj;
@@ -100,7 +99,7 @@ class App extends Component {
             recordEducation:newStateObj,
           });
 
-           console.log("modifyStateForm:after:"+Object.keys(this.state.recordEducation.key));
+          
         }
         recordCounter++;
       });
