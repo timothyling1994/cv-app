@@ -19,9 +19,9 @@ class App extends Component {
     super(props);
 
     this.state={
-      workExperienceForm:[false],
-      educationForm:[false],
-      skillsForm:[false],
+      workExperienceForm:false,
+      educationForm:false,
+      skillsForm:false,
       recordEducation:[],
       recordWorkExperience:[],
       recordSkills:[],
@@ -30,7 +30,7 @@ class App extends Component {
 
     this.addEducationForm=this.addEducationForm.bind(this);
     this.removeEducationForm=this.removeEducationForm.bind(this);
-    this.modifyEducation=this.modifyEducation.bind(this);
+    this.modifyStateFormObj=this.modifyStateFormObj.bind(this);
     this.addWorkExperienceForm=this.addWorkExperienceForm.bind(this);
     this.addSkillsForm=this.addSkillsForm.bind(this);
     this.removeWorkExperienceForm=this.removeWorkExperienceForm.bind(this);
@@ -47,13 +47,13 @@ class App extends Component {
     add_education_btn.style.display="none";
 
     this.setState({
-      educationForm:[true],
+      educationForm:true,
    });
   }
 
   removeEducationForm(){
     this.setState({
-      educationForm:[false],
+      educationForm:false,
     });
 
     const add_education_btn = document.querySelector(".add-education");
@@ -62,33 +62,63 @@ class App extends Component {
 
   recordEducation(formObj){
     this.removeEducationForm();
-    //console.log(uniqid());
-    //const newArr = this.state.recordEducation.concat(<Education key={uniqid()} id={uniqid()} formObj={formObj} modifyEducation={this.modifyEducation}/>);
-    console.log(this.state.recordEducation); //empty array
+  
     const newArr = this.state.recordEducation.concat({
       key:uniqid(),
       id:uniqid(),
       formObj:formObj,
     });
-    console.log(newArr);
-    //console.log(newArr.id);
+
     this.setState({
       recordEducation:newArr,
     });
 
+    console.log("recordEducation:"+this.state.recordEducation);
+
   }
 
-  modifyEducation(id,objField,newValue){
-    //console.log(this.state.recordEducation);
-    console.log(id,objField,newValue);
-    //console.log(this.state.recordEducation[objField]);
-    this.state.recordEducation.forEach((record)=>{
-      console.log("printing"+record.id);
-      if(record.id==id)
-      {
-        console.log("FOUND:" + record);
-      }
-    })
+  modifyStateFormObj(id,stateKey,formObjKey,newValue,optional){
+
+    let bulletPointKey = optional;
+
+    console.log("modifyStateForm:before:"+Object.keys(this.state.recordEducation.key));
+
+    if(bulletPointKey == undefined)
+    {
+      this.state.[stateKey].forEach((record)=>{
+        let recordCounter = 0;
+        if(record.id==id)
+        {
+          console.log("reach1");
+          let newEducationObj = record;
+          console.log("reach2");
+          newEducationObj.formObj[formObjKey]=newValue;
+          let newStateObj = this.state.[stateKey];
+          newStateObj[recordCounter] = newEducationObj;
+
+          this.setState({
+            recordEducation:newStateObj,
+          });
+
+           console.log("modifyStateForm:after:"+Object.keys(this.state.recordEducation.key));
+        }
+        recordCounter++;
+      });
+    }
+    //change workexperience formobj bulletpoint array
+    else{
+      this.state.[stateKey].forEach((record)=>{
+        if(record.id==id)
+        {
+          //record.formObj[formObjKey] = {
+          //  [bulletPointKey]
+          //};
+        }
+      });
+    }
+
+  
+
   }
 
   addWorkExperienceForm(){ 
@@ -96,13 +126,13 @@ class App extends Component {
     add_work_btn.style.display="none";
 
     this.setState({
-      workExperienceForm:[true],
+      workExperienceForm:true,
     });
   } 
 
   removeWorkExperienceForm(){
     this.setState({
-      workExperienceForm:[false],
+      workExperienceForm:false,
     });
 
     const add_work_btn = document.querySelector(".add-work-experience");
@@ -121,19 +151,30 @@ class App extends Component {
     });
   }
 
+  modifyWorkExperience(id,objField,newValue){
+
+    this.state.recordWorkExperience.forEach((record)=>{
+      if(record.id==id)
+      {
+        record.formObj[objField] = newValue;
+      }
+    });
+
+  }
+
   addSkillsForm(){ 
     //console.log(this);
     const add_skills_btn = document.querySelector(".add-skills");
     add_skills_btn.style.display="none";
 
     this.setState({
-      skillsForm:[true],
+      skillsForm:true,
     });
   }
 
   removeSkillsForm(){
     this.setState({
-      skillsForm:[false],
+      skillsForm:false,
     });
 
     const add_skills_btn = document.querySelector(".add-skills");
@@ -147,8 +188,7 @@ class App extends Component {
   render(){
     //console.log(this.state.educationForm);
     return (
-      <div className="App">
-        
+      <div className="App">        
         <div className="contact-container">
           <ContactDetails></ContactDetails>
         </div>
@@ -156,28 +196,26 @@ class App extends Component {
         <div className="education-container">
           <div className="title">EDUCATION</div>
           {this.state.recordEducation.map((entry)=>{
-            return <Education key={entry.key} id={entry.id} formObj={entry.formObj} modifyEducation={this.modifyEducation}/>
+            return <Education key={entry.key} id={entry.id} formObj={entry.formObj} modifyStateFormObj={this.modifyStateFormObj}/>
           })}
-          {this.state.educationForm[0] && <EducationForm removeEducationForm={this.removeEducationForm} recordEducation={this.recordEducation}/>}
+          {this.state.educationForm && <EducationForm removeEducationForm={this.removeEducationForm} recordEducation={this.recordEducation}/>}
           <button className="add-education" onClick={this.addEducationForm}>+ Add Education</button>
         </div>
 
         <div className="work-experience-container">
           <div className="title">WORK EXPERIENCE</div>
           {this.state.recordWorkExperience.map((entry)=>{
-            return <WorkExperience key={entry.key} id={entry.id} formObj={entry.formObj}/>
+            return <WorkExperience key={entry.key} id={entry.id} formObj={entry.formObj} modifyStateFormObj={this.modifyStateFormObj}/>
           })}
-          {this.state.workExperienceForm[0] && <WorkExperienceForm removeWorkExperienceForm={this.removeWorkExperienceForm} recordWorkExperience={this.recordWorkExperience}/>}
+          {this.state.workExperienceForm && <WorkExperienceForm removeWorkExperienceForm={this.removeWorkExperienceForm} recordWorkExperience={this.recordWorkExperience}/>}
           <button className="add-work-experience" onClick={this.addWorkExperienceForm}>+ Add Work Experience</button>
         </div>
 
         <div className="skills-container">
           <div className="title">SKILLS</div>
-          {this.state.skillsForm[0] && <SkillsForm removeSkillsForm={this.removeSkillsForm}/>}
+          {this.state.skillsForm && <SkillsForm removeSkillsForm={this.removeSkillsForm}/>}
           <button className="add-skills" onClick={this.addSkillsForm}>+ Add Skills</button>       
         </div>
-
-
       </div>
     );
   }

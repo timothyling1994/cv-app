@@ -1,4 +1,5 @@
 import React, {Component} from "react";
+import uniqid from "uniqid";
 
 class WorkExperienceForm extends Component{
 
@@ -20,6 +21,12 @@ class WorkExperienceForm extends Component{
 
 		let nolinebreaks = this.remove_linebreaks(company_role_description_input).split('\u2022');
 		let company_role_description_array = nolinebreaks.filter(bulletpoint=>bulletpoint !== "");
+		let company_role_description_obj = {};
+		company_role_description_array.forEach((bulletpoint)=>{
+			company_role_description_obj[uniqid()] = bulletpoint;
+		});
+
+		console.log(company_role_description_obj);
 
 		this.props.recordWorkExperience({
 			company_name_input,
@@ -27,7 +34,7 @@ class WorkExperienceForm extends Component{
 			company_from_date_input,
 			company_to_date_input,
 			company_role_input,
-			company_role_description_array,
+			company_role_description_obj,
 		})
 	}
 

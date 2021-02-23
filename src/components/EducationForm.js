@@ -24,7 +24,7 @@ class EducationForm extends Component{
 
 
 	render(){
-		console.log(this.props);
+
 		return (
 			<div className="educationForm">  
 				<div className="formGroup">

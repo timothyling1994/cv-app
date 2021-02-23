@@ -5,16 +5,18 @@ class EditForm extends Component{
 	constructor(props){
 		super(props);
 	}
+	//stateKey="recordEducation" formObjKey="school_input"
 
 	sendEditedForm(event){
 		let newValue = event.target.parentElement.querySelector("input").value;
-		this.props.modifyEducation(this.props.id,this.props.inputType,newValue);
+		this.props.modifyStateFormObj(this.props.id,this.props.stateKey,this.props.formObjKey,newValue,this.props.bulletpointKey);
+		this.props.setEditStateFalse();
 	}
 
 	render(){
 		return (
 			<div className="editForm">
-				<input className={this.props.className} type="text" placeholder={this.props.placeholder}/>
+				<input className={this.props.className} type="text" defaultValue={this.props.value}/>
 				<button onClick={(e)=>this.sendEditedForm(e)}>Submit Edit</button>
 				<button onClick={()=>this.props.setEditStateFalse()}>Cancel</button>
 			</div>

@@ -7,47 +7,50 @@ class Education extends Component{
 		super(props);
 
 		this.state={
-			"display-university":[],
+
 			editUniversity:false,
-			"display-university-date-range":[],
-			"display-degree":[],
+			editFromDate:false,
+			editToDate:false,
+			editDegree:false,
 		};
 
-		this.editForm = this.editForm.bind(this);
+		this.setEditStateTrue = this.setEditStateTrue.bind(this);
 		this.setEditStateFalse = this.setEditStateFalse.bind(this);
 	}
 
-	editForm(event){
-		//this.props.modifyEducation();
+	setEditStateTrue(event,keyName){
+		//this.props.modifyStateFormObj();
 		event.target.style.display="none";
 		const target_parent = event.target.parentElement;
 
 		this.setState({
-			editUniversity:true,
+			[keyName]:true,
 		});
 		//target_parent.insertBefore(<EditForm/>,event.target);
 
-
-
 	}
 
-	setEditStateFalse(){
+	setEditStateFalse(keyName){
 		this.setState({
-			editUniversity:false,
+			[keyName]:false,
 		})
 	}
 	//<div className="display-university" onClick={(e)=>this.editForm(e)}>{this.props.formObj.school_input}</div>
 
 	render(){
-		console.log(this.props);
+
 		return (
 			<div className ="education">
 	          <div className="row">
-	          	{(this.state.editUniversity) ? <EditForm id={this.props.id} inputType="school_input"className="display-university" setEditStateFalse={this.setEditStateFalse} modifyEducation={this.props.modifyEducation} placeholder={this.props.formObj.school_input}/> : <div id={this.props.id} className="display-university" onClick={(e)=>this.editForm(e)}>{this.props.formObj.school_input}</div>}
-	          	<div className="display-university-date-range">{this.props.formObj.school_from_date}-{this.props.formObj.school_to_date}</div>
+	          	{(this.state.editUniversity) ? <EditForm id={this.props.id} stateKey="recordEducation" formObjKey="school_input" className="display-university" setEditStateFalse={()=>this.setEditStateFalse("editUniversity")} modifyStateFormObj={this.props.modifyStateFormObj} value={this.props.formObj.school_input}/> : <div id={this.props.id} className="display-university" onClick={(e)=>this.setEditStateTrue(e,"editUniversity")}>{this.props.formObj.school_input}</div>}
+	          	<div className="display-university-date-range">
+	          		{(this.state.editFromDate) ? <EditForm id={this.props.id} stateKey="recordEducation" formObjKey="school_from_date" setEditStateFalse={()=>this.setEditStateFalse("editFromDate")} modifyStateFormObj={this.props.modifyStateFormObj} value={this.props.formObj.school_from_date}/> : <div onClick={(e)=>this.setEditStateTrue(e,"editFromDate")}>{this.props.formObj.school_from_date}</div>} - {(this.state.editToDate) ? <EditForm id={this.props.id} stateKey="recordEducation" formObjKey="school_to_date" setEditStateFalse={()=>this.setEditStateFalse("editToDate")} modifyStateFormObj={this.props.modifyStateFormObj} value={this.props.formObj.school_to_date}/> : <div onClick={(e)=>this.setEditStateTrue(e,"editToDate")}>{this.props.formObj.school_to_date}</div>}
+	          	</div>	
 	          </div>
 	          <div className="row">
-	          	<div className="display-degree">{this.props.formObj.school_degree_input}</div>
+	          	<div className="display-degree">
+	          		{(this.state.editDegree) ? <EditForm id={this.props.id} stateKey="recordEducation" formObjKey="school_degree_input" setEditStateFalse={()=>this.setEditStateFalse("editDegree")} modifyStateFormObj={this.props.modifyStateFormObj} value={this.props.formObj.school_degree_input}/> : <div onClick={(e)=>this.setEditStateTrue(e,"editDegree")}>{this.props.formObj.school_degree_input}</div>}
+	          	</div>
 	          </div>
 	        </div>
 	    );
