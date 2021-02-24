@@ -4,36 +4,28 @@ class SkillsForm extends Component{
 
 	constructor(props){
 		super(props);
-
-		this.state={
-			skillsAdded:[],
-		}
-
 	}
 
-	addingSkills(e){
-		if(e.key=="Enter")
+	sendFormData(e){
+		if(e.key=="Enter" || e == "Click")
 		{
-			const skill_input = document.querySelector("#skill-input");
-			const skillsAdded = this.state.skillsAdded;
-			let newSkillsArray = skillsAdded.concat(skill_input.value);
-			this.setState({
-				skillsAdded:newSkillsArray,
-			})
+			let skill_input = document.querySelector("#skill-input");
+			console.log(skill_input.value);
+			this.props.recordSkills({
+				skill_input:skill_input.value,
+			});
 
 			skill_input.value="";
-
 		}
 	}
 
 	render(){
 		return (
-			<div className="skillsForm">  
+			<div className="skillsForm"> 
 				<div className="formGroup">
-	              {this.state.skillsAdded}
-	              <input id="skill-input"type="text" onKeyDown={(e)=>this.addingSkills(e)} placeholder="Share your top skills"/>
+	              <input id="skill-input"type="text" onKeyDown={(e)=>this.sendFormData(e)} placeholder="Share your top skills"/>
 	            </div>
-	            <button id="submit-skills"className="submit">Submit</button>
+	            <button id="submit-skills"className="submit" onClick={()=>this.sendFormData("Click")}>Submit</button>
 	            <button id="cancel-skills"className="cancel" onClick={()=>this.props.removeSkillsForm()}>Cancel</button>
 	        </div>
 	    );

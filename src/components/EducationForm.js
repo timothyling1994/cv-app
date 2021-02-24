@@ -4,8 +4,6 @@ class EducationForm extends Component{
 
 	constructor(props){
 		super(props);
-
-		//this.sendFormData=this.sendFormData.bind(this);
 	}
 
 	sendFormData(){
@@ -26,7 +24,7 @@ class EducationForm extends Component{
 	render(){
 
 		return (
-			<div className="educationForm">  
+			<div className="educationForm">
 				<div className="formGroup">
 	              <label>University or School Name</label>
 	              <input id = "school-input" type="text" placeholder="University or School Name"/>

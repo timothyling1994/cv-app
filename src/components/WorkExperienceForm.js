@@ -22,11 +22,11 @@ class WorkExperienceForm extends Component{
 		let nolinebreaks = this.remove_linebreaks(company_role_description_input).split('\u2022');
 		let company_role_description_array = nolinebreaks.filter(bulletpoint=>bulletpoint !== "");
 		let company_role_description_obj = {};
+
 		company_role_description_array.forEach((bulletpoint)=>{
 			company_role_description_obj[uniqid()] = bulletpoint;
 		});
 
-		console.log(company_role_description_obj);
 
 		this.props.recordWorkExperience({
 			company_name_input,
@@ -40,7 +40,7 @@ class WorkExperienceForm extends Component{
 
 	addBulletPoint(e){
 		const company_role_description_input = document.querySelector("#company-role-description-input");
-		console.log(e);
+
 		if(e.key=="Enter")
 		{
 			e.preventDefault();

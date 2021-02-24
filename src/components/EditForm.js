@@ -5,7 +5,6 @@ class EditForm extends Component{
 	constructor(props){
 		super(props);
 	}
-	//stateKey="recordEducation" formObjKey="school_input"
 
 	sendEditedForm(event){
 		let newValue = event.target.parentElement.querySelector("input").value;

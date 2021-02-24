@@ -1,5 +1,6 @@
 import React, {Component} from "react";
 import EditForm from './EditForm.js';
+import closeBtn from '../close-btn.png'
 
 class Education extends Component{
 
@@ -19,28 +20,37 @@ class Education extends Component{
 	}
 
 	setEditStateTrue(event,keyName){
-		//this.props.modifyStateFormObj();
+
 		event.target.style.display="none";
 		const target_parent = event.target.parentElement;
 
 		this.setState({
 			[keyName]:true,
 		});
-		//target_parent.insertBefore(<EditForm/>,event.target);
+
 
 	}
 
 	setEditStateFalse(keyName){
+		console.log("keyName:"+keyName);
 		this.setState({
 			[keyName]:false,
 		})
 	}
-	//<div className="display-university" onClick={(e)=>this.editForm(e)}>{this.props.formObj.school_input}</div>
+
+	deleteComponent(stateKey){
+		console.log("to delete index:" + this.props.id);
+		this.props.deleteComponentsFromState(this.props.id,stateKey);
+
+	}
 
 	render(){
 
 		return (
 			<div className ="education">
+				<div className="close-btn-row">
+					<img src={closeBtn} className="close-btn" onClick={()=>this.deleteComponent("recordEducation")}/>
+				</div>  
 	          <div className="row">
 	          	{(this.state.editUniversity) ? <EditForm id={this.props.id} stateKey="recordEducation" formObjKey="school_input" className="display-university" setEditStateFalse={()=>this.setEditStateFalse("editUniversity")} modifyStateFormObj={this.props.modifyStateFormObj} value={this.props.formObj.school_input}/> : <div id={this.props.id} className="display-university" onClick={(e)=>this.setEditStateTrue(e,"editUniversity")}>{this.props.formObj.school_input}</div>}
 	          	<div className="display-university-date-range">
